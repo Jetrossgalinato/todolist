@@ -1,7 +1,7 @@
 export interface Todo {
-  id: number;
+  id: string; // UUID from Supabase
   text: string;
   completed: boolean;
-  dueDate?: string;
+  due_date?: string;
   priority?: 'low' | 'medium' | 'high';
 }

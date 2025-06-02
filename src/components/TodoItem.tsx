@@ -3,10 +3,11 @@ import { Todo } from '../types/Todo';
 
 interface Props {
   todo: Todo;
-  onToggle: (id: number) => void;
-  onDelete: (id: number) => void;
-  onEdit: (id: number, newText: string) => void;
+  onToggle: (id: string) => void;
+  onDelete: (id: string) => void;
+  onEdit: (id: string, newText: string) => void;
 }
+
 
 const TodoItem: React.FC<Props> = ({ todo, onToggle, onDelete, onEdit }) => {
   const [isEditing, setIsEditing] = useState(false);
