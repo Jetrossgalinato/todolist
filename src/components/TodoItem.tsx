@@ -19,11 +19,11 @@ const TodoItem: React.FC<Props> = ({ todo, onToggle, onDelete, onEdit }) => {
           type="checkbox"
           checked={todo.completed}
           onChange={() => onToggle(todo.id)}
-          className="w-5 h-5 accent-blue-500"
+          className="w-5 h-5 accent-blue-500 dark:accent-blue-400 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600"
         />
         {isEditing ? (
           <input
-            className="border border-gray-300 rounded px-2 py-1 text-sm w-full"
+            className="border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             value={newText}
             onChange={(e) => setNewText(e.target.value)}
           />
