@@ -95,8 +95,8 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>To-Do List</h1>
+    <div className="max-w-xl mx-auto p-4 bg-white shadow-md rounded-lg">
+      <h1 className="text-3xl font-bold mb-4 text-center">To-Do List</h1>
       <input
         value={text}
         onChange={(e) => setText(e.target.value)}
