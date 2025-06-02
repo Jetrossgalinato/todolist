@@ -7,6 +7,8 @@ const LOCAL_STORAGE_KEY = 'todoList';
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [text, setText] = useState('');
+  const [dueDate, setDueDate] = useState('');
+  const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
 
   // Load from localStorage
   useEffect(() => {
@@ -20,15 +22,19 @@ const App: React.FC = () => {
   }, [todos]);
 
   const handleAddTodo = () => {
-    if (!text.trim()) return;
-    const newTodo: Todo = {
-      id: Date.now(),
-      text: text.trim(),
-      completed: false,
-    };
-    setTodos([...todos, newTodo]);
-    setText('');
+  if (!text.trim()) return;
+  const newTodo: Todo = {
+    id: Date.now(),
+    text: text.trim(),
+    completed: false,
+    dueDate,
+    priority
   };
+  setTodos([...todos, newTodo]);
+  setText('');
+  setDueDate('');
+  setPriority('medium');
+};
 
   const handleToggle = (id: number) => {
     setTodos(todos.map(todo => 
@@ -43,7 +49,13 @@ const App: React.FC = () => {
   return (
     <div>
       <h1>To-Do List</h1>
-      <input value={text} onChange={(e) => setText(e.target.value)} />
+      <input value={text} onChange={(e) => setText(e.target.value)} placeholder="Task" />
+      <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+      <select value={priority} onChange={(e) => setPriority(e.target.value as any)}>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
       <button onClick={handleAddTodo}>Add</button>
       <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
     </div>
