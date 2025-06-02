@@ -42,6 +42,12 @@ const App: React.FC = () => {
     ));
   };
 
+  const handleEdit = (id: number, newText: string) => {
+  setTodos(todos.map(todo => 
+    todo.id === id ? { ...todo, text: newText } : todo
+  ));
+};
+
   const handleDelete = (id: number) => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
@@ -57,7 +63,12 @@ const App: React.FC = () => {
         <option value="high">High</option>
       </select>
       <button onClick={handleAddTodo}>Add</button>
-      <TodoList todos={todos} onToggle={handleToggle} onDelete={handleDelete} />
+      <TodoList
+        todos={todos}
+        onToggle={handleToggle}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
+      />
     </div>
   );
 };
