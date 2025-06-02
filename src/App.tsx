@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Todo } from './types/Todo';
 import TodoList from './components/TodoList';
+
+const LOCAL_STORAGE_KEY = 'todoList';
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [text, setText] = useState('');
+
+  // Load from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (stored) setTodos(JSON.parse(stored));
+  }, []);
+
+  // Save to localStorage
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
+  }, [todos]);
 
   const handleAddTodo = () => {
     if (!text.trim()) return;
