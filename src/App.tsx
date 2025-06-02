@@ -10,16 +10,25 @@ const App: React.FC = () => {
   const [dueDate, setDueDate] = useState('');
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>('medium');
 
-  // Load from localStorage
-  useEffect(() => {
-    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (stored) setTodos(JSON.parse(stored));
-  }, []);
+// Load from localStorage on mount
+useEffect(() => {
+  const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) {
+        setTodos(parsed);
+      }
+    } catch (e) {
+      setTodos([]);
+    }
+  }
+}, []);
 
-  // Save to localStorage
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
-  }, [todos]);
+// Save to localStorage whenever todos change
+useEffect(() => {
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
+}, [todos]);
 
   const handleAddTodo = () => {
   if (!text.trim()) return;
