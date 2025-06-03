@@ -55,6 +55,12 @@ const TodoItem: React.FC<Props> = ({ todo, onToggle, onDelete, onEdit }) => {
             {todo.text}
           </span>
         )}
+        {/* Due date display */}
+      {todo.due_date && (
+        <span className="ml-4 text-xs px-2 py-1 rounded bg-gray-200 dark:bg-gray-300 text-gray-700 dark:text-gray-600">
+          Due: {new Date(todo.due_date).toLocaleDateString()}
+        </span>
+      )}
       </div>
 
       <div className="flex gap-2">
